@@ -1,0 +1,397 @@
+{
+  "cpp": {
+    "name": "C++",
+    "description": "Linguagem de programação de propósito geral, compilada, de alto desempenho.",
+    "topics": {
+      "introducao": {
+        "keywords": [
+          "o que é",
+          "introdução",
+          "inicio",
+          "começar",
+          "basico",
+          "básico",
+          "primeiros passos",
+          "sobre cpp",
+          "sobre c++"
+        ],
+        "responses": [
+          "C++ é uma linguagem de programação de propósito geral criada por Bjarne Stroustrup em 1985. É uma extensão da linguagem C com suporte a programação orientada a objetos! 🚀",
+          "C++ é uma linguagem compilada, de alto desempenho, usada em sistemas operacionais, jogos, motores de busca e muito mais. Vamos aprender juntos, {name}! 💻",
+          "E aí, {name}! C++ é conhecida por seu poder e controle sobre o hardware. É a linguagem por trás de muitos jogos e sistemas que você usa todo dia! 🎮"
+        ]
+      },
+      "variaveis": {
+        "keywords": [
+          "variável",
+          "variaveis",
+          "variáveis",
+          "tipos de dados",
+          "int",
+          "float",
+          "double",
+          "char",
+          "bool",
+          "string",
+          "declarar"
+        ],
+        "responses": [
+          "Em C++, {name}, os principais tipos de dados são: `int` (inteiros), `float` e `double` (decimais), `char` (caracteres), `bool` (booleanos) e `string` (textos). Quer ver exemplos? 📝",
+          "Opa, {name}! Para declarar uma variável em C++, usamos: `tipo nome = valor;`. Exemplo: `int idade = 25;`. Simples assim! Quer saber de algum tipo específico? 🤔",
+          "Variáveis em C++ precisam de um tipo definido, {name}. Diferente de Python, o compilador precisa saber o tamanho da memória. Isso dá mais controle e performance! ⚡"
+        ]
+      },
+      "condicionais": {
+        "keywords": [
+          "if",
+          "else",
+          "condicional",
+          "condicionais",
+          "switch",
+          "ternario",
+          "ternário",
+          "controle de fluxo"
+        ],
+        "responses": [
+          "Em C++, {name}, usamos `if`, `else if` e `else` para controle condicional. Também temos o `switch` para múltiplos casos. Quer um exemplo prático? 🎯",
+          "E aí, {name}! A estrutura condicional básica é: `if (condicao) { ... } else { ... }`. O `switch` é ótimo quando você tem várias opções para uma mesma variável! 🔀",
+          "C++ também suporta o operador ternário, {name}: `condicao ? valor1 : valor2;`. É uma forma compacta de escrever if/else! Bem útil! ✨"
+        ]
+      },
+      "loops": {
+        "keywords": [
+          "loop",
+          "loops",
+          "for",
+          "while",
+          "do while",
+          "repetição",
+          "iteração",
+          "iterar",
+          "repetir"
+        ],
+        "responses": [
+          "C++ tem três estruturas de repetição principais, {name}: `for` (quando sabe o número de iterações), `while` (condição no início) e `do...while` (condição no final). Qual quer ver? 🔄",
+          "O `for` em C++ é clássico, {name}: `for (int i = 0; i < 10; i++) { ... }`. O `while` verifica antes de executar, e o `do...while` garante pelo menos uma execução! 💪",
+          "Loops em C++ são rápidos e eficientes, {name}! O compilador faz otimizações automáticas. Quer aprender sobre `break`, `continue` e `goto` também? 🚀"
+        ]
+      },
+      "funcoes": {
+        "keywords": [
+          "função",
+          "funcao",
+          "funções",
+          "funcoes",
+          "function",
+          "método",
+          "metodo",
+          "procedimento",
+          "retornar",
+          "return",
+          "parametro",
+          "parâmetro"
+        ],
+        "responses": [
+          "Funções em C++, {name}, são declaradas assim: `tipoRetorno nomeFuncao(tipoParam param) { ... return valor; }`. A `main()` é a função principal! Quer ver exemplos? 📐",
+          "E aí, {name}! C++ suporta sobrecarga de funções (mesmo nome, parâmetros diferentes) e funções inline para otimização. Também temos templates para genericidade! 🔧",
+          "Em C++, {name}, você pode passar parâmetros por valor, por referência (`&`) ou por ponteiro (`*`). Cada um tem seu uso ideal! Quer que eu explique a diferença? 🤓"
+        ]
+      },
+      "ponteiros": {
+        "keywords": [
+          "ponteiro",
+          "ponteiros",
+          "pointer",
+          "endereço",
+          "endereco",
+          "memoria",
+          "memória",
+          "referencia",
+          "referência",
+          "*",
+          "&",
+          "malloc",
+          "new",
+          "delete"
+        ],
+        "responses": [
+          "Ponteiros são um dos pontos fortes de C++, {name}! Um ponteiro armazena o endereço de memória de uma variável. Declaramos com `*`: `int* ptr = &variavel;`. É desafiador no início, mas muito poderoso! 🧠",
+          "E aí, {name}! Ponteiros permitem alocação dinâmica com `new` e `delete`. Exemplo: `int* arr = new int[10];` ... `delete[] arr;`. Isso dá controle total sobre a memória! 💾",
+          "Ponteiros e referências são parecidos, {name}, mas diferentes! Ponteiros podem ser reatribuídos e podem ser nulos. Referências (`&`) são mais seguras e não podem ser nulas. Quer aprofundar? 📚"
+        ]
+      },
+      "arrays": {
+        "keywords": [
+          "array",
+          "arrays",
+          "vetor",
+          "vetores",
+          "matriz",
+          "matrizes",
+          "arranjo",
+          "lista",
+          "[]",
+          "tamanho",
+          "size"
+        ],
+        "responses": [
+          "Arrays em C++ são coleções de elementos do mesmo tipo, {name}. Exemplo: `int numeros[5] = {1, 2, 3, 4, 5};`. O índice começa em 0! Quer ver sobre arrays multidimensionais? 📊",
+          "E aí, {name}! Arrays em C++ têm tamanho fixo (estáticos) ou dinâmico (com `new`). Para tamanho variável, usamos `std::vector` da STL — muito mais flexível! 🎯",
+          "Arrays e ponteiros estão intimamente ligados em C++, {name}! O nome de um array é um ponteiro para o primeiro elemento. `arr[i]` é equivalente a `*(arr + i)`! Mente aberta? 🤯"
+        ]
+      },
+      "classes": {
+        "keywords": [
+          "classe",
+          "classes",
+          "objeto",
+          "objetos",
+          "oop",
+          "orientação a objetos",
+          "orientacao a objetos",
+          "encapsulamento",
+          "herança",
+          "polimorfismo",
+          "constructor",
+          "destructor",
+          "private",
+          "public",
+          "protected"
+        ],
+        "responses": [
+          "Classes em C++ são a base da POO, {name}! Declaramos com `class Nome { private: ... public: ... };`. Temos construtores, destrutores, herança e polimorfismo! Quer um exemplo completo? 🏗️",
+          "E aí, {name}! C++ suporta herança múltipla (uma classe pode herdar de várias), sobrecarga de operadores, e templates de classe. É POO no nível hardcore! 💪",
+          "Em C++, {name}, os modificadores de acesso são: `private` (só a classe acessa), `protected` (classe e herdeiros) e `public` (todos acessam). O destrutor (`~Classe()`) libera recursos automaticamente! 🛡️"
+        ]
+      },
+      "stl": {
+        "keywords": [
+          "stl",
+          "standard template library",
+          "vector",
+          "map",
+          "set",
+          "queue",
+          "stack",
+          "list",
+          "deque",
+          "iterator",
+          "algoritmo",
+          "sort",
+          "find"
+        ],
+        "responses": [
+          "A STL (Standard Template Library) é um tesouro de C++, {name}! Temos `vector` (array dinâmico), `map` (dicionário), `set` (conjunto), `queue` (fila), `stack` (pilha) e muito mais! 🗂️",
+          "E aí, {name}! A STL inclui algoritmos genéricos como `sort()`, `find()`, `binary_search()` que funcionam com qualquer container. É programação genérica na veia! 🧬",
+          "A STL usa iterators para percorrer containers, {name}. Exemplo: `for (auto it = vec.begin(); it != vec.end(); ++it)`. Desde C++11, usamos `for (auto& x : vec)` — muito mais limpo! ✨"
+        ]
+      },
+      "compilacao": {
+        "keywords": [
+          "compilar",
+          "compilação",
+          "compilacao",
+          "g++",
+          "gcc",
+          "make",
+          "cmake",
+          "build",
+          "linker",
+          "biblioteca",
+          "library",
+          "header",
+          "include",
+          "namespace"
+        ],
+        "responses": [
+          "Para compilar C++, {name}, usamos o g++: `g++ arquivo.cpp -o programa`. O processo tem pré-processamento, compilação, montagem e linkedição. Quer entender cada etapa? ⚙️",
+          "E aí, {name}! O pré-processador lida com `#include`, `#define` e macros. Depois o compilador gera código assembly, o assembler cria objeto (.o), e o linker une tudo em um executável! 🔗",
+          "Namespaces em C++ evitam conflitos de nomes, {name}. `using namespace std;` traz o namespace padrão. Em projetos grandes, é melhor usar `std::cout` explicitamente para clareza! 🏷️"
+        ]
+      },
+      "entrada_saida": {
+        "keywords": [
+          "cout",
+          "cin",
+          "printf",
+          "scanf",
+          "entrada",
+          "saida",
+          "saída",
+          "input",
+          "output",
+          "io",
+          "iostream",
+          "print",
+          "ler",
+          "escrever",
+          "exibir",
+          "mostrar"
+        ],
+        "responses": [
+          "Em C++, {name}, usamos `std::cout` para saída e `std::cin` para entrada. Exemplo: `cout << \"Olá!\";` e `cin >> variavel;`. Não esqueça do `#include <iostream>`! 🖨️",
+          "E aí, {name}! Também podemos usar `printf` e `scanf` da linguagem C em C++. `cout` e `cin` são mais type-safe e orientados a objetos. Qual prefere? 🤔",
+          "Para formatação avançada, {name}, C++20 introduziu `std::format` (similar ao Python). Antes disso, usamos manipuladores como `setw`, `setprecision` de `<iomanip>`. Quer ver? 🎨"
+        ]
+      },
+      "erros": {
+        "keywords": [
+          "erro",
+          "erros",
+          "bug",
+          "debug",
+          "depurar",
+          "segmentation fault",
+          "segfault",
+          "null pointer",
+          "memory leak",
+          "vazamento",
+          "exceção",
+          "exception",
+          "try",
+          "catch",
+          "throw"
+        ],
+        "responses": [
+          "Erros comuns em C++, {name}: `segmentation fault` (acesso inválido de memória), `memory leak` (esqueceu `delete`), e erros de tipo. Use `valgrind` para detectar vazamentos! 🐛",
+          "E aí, {name}! C++ usa exceções com `try`, `catch` e `throw`. Exemplo: `try { ... } catch (exception& e) { cout << e.what(); }`. Desde C++11, temos `std::exception_ptr` também! 🚨",
+          "Dica de ouro, {name}: sempre inicialize ponteiros como `nullptr`, verifique limites de arrays, e use RAII (destrutores para liberar recursos). Isso evita 90% dos bugs de memória! 💎"
+        ]
+      },
+      "boas_praticas": {
+        "keywords": [
+          "boa prática",
+          "boas praticas",
+          "boas práticas",
+          "dica",
+          "dicas",
+          "conselho",
+          "recomendação",
+          "recomendacao",
+          "estilo",
+          "style",
+          "clean code",
+          "modern cpp",
+          "c++11",
+          "c++14",
+          "c++17",
+          "c++20"
+        ],
+        "responses": [
+          "Boas práticas em C++, {name}: use `const` sempre que possível, prefira referências a ponteiros, use smart pointers (`unique_ptr`, `shared_ptr`), e evite macros! O código fica mais seguro! 🛡️",
+          "E aí, {name}! Modern C++ (C++11 em diante) trouxe: `auto`, range-based for, lambdas, smart pointers, `nullptr`, `constexpr`, e muito mais. Se estiver usando C++98, está na hora de atualizar! 🚀",
+          "Dica do Carlinho: {name}, use `std::vector` em vez de arrays C-style, `std::string` em vez de `char*`, e RAII para gerenciamento de recursos. Seu código vai agradecer! 😄"
+        ]
+      }
+    },
+    "fallback": [
+      "Hmm, {name}, essa pergunta sobre C++ é interessante! Mas ainda não tenho essa informação detalhada na minha base. Posso te ajudar com: variáveis, loops, funções, ponteiros, classes, STL, compilação, entrada/saída, erros e boas práticas. Qual desses? 🤔",
+      "E aí, {name}! Sobre esse tópico específico de C++, minha base ainda está crescendo. Mas conheço bastante sobre os fundamentos! Quer falar sobre variáveis, condicionais, loops, funções, ponteiros, arrays, classes ou STL? 📚",
+      "Opa, {name}! Essa é uma boa pergunta sobre C++. Ainda estou expandindo meu conhecimento nesse tópico específico. Enquanto isso, posso te ajudar com os conceitos principais da linguagem. O que acha? 💡"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai, seu assistente de C++! 💻 Pode me perguntar qualquer coisa sobre a linguagem — variáveis, loops, funções, ponteiros, classes, STL... Tô aqui pra ajudar!",
+      "Fala, {name}! 🤙 Carlinho Ai na área! Pronto pra mergulhar no mundo de C++? Me manda sua dúvida que eu traduzo em código!",
+      "Olá, {name}! 🚀 Bem-vindo ao Carlinho Ai! Especialista em C++ (e em breve em mais linguagens!). O que vamos aprender hoje?"
+    ]
+  },
+  "python": {
+    "name": "Python",
+    "description": "Linguagem de programação de alto nível, interpretada, com sintaxe clara e legível.",
+    "fallback": [
+      "E aí, {name}! A base de dados para Python ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre Python! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🐍",
+      "Opa, {name}! Python é incrível, mas minha base de conhecimento para essa linguagem ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! 🐍 A base de Python ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "c": {
+    "name": "C",
+    "description": "Linguagem de programação procedural, de baixo nível, base para muitas outras linguagens.",
+    "fallback": [
+      "E aí, {name}! A base de dados para C ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre C! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🔧",
+      "Opa, {name}! C é a linguagem-mãe, mas minha base para ela ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de C ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "csharp": {
+    "name": "C#",
+    "description": "Linguagem moderna, orientada a objetos, desenvolvida pela Microsoft para a plataforma .NET.",
+    "fallback": [
+      "E aí, {name}! A base de dados para C# ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre C#! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🔷",
+      "Opa, {name}! C# é poderoso, mas minha base para essa linguagem ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de C# ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "javascript": {
+    "name": "JavaScript",
+    "description": "Linguagem de programação interpretada, usada principalmente para desenvolvimento web.",
+    "fallback": [
+      "E aí, {name}! A base de dados para JavaScript ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre JS! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🌐",
+      "Opa, {name}! JavaScript é essencial para web, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de JavaScript ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "html": {
+    "name": "HTML",
+    "description": "Linguagem de marcação para criação de páginas web.",
+    "fallback": [
+      "E aí, {name}! A base de dados para HTML ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre HTML! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🏷️",
+      "Opa, {name}! HTML é a base da web, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de HTML ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "css": {
+    "name": "CSS",
+    "description": "Linguagem de estilo para descrição da apresentação de documentos HTML.",
+    "fallback": [
+      "E aí, {name}! A base de dados para CSS ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre CSS! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🎨",
+      "Opa, {name}! CSS deixa tudo bonito, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de CSS ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "php": {
+    "name": "PHP",
+    "description": "Linguagem de script server-side para desenvolvimento web.",
+    "fallback": [
+      "E aí, {name}! A base de dados para PHP ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre PHP! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🐘",
+      "Opa, {name}! PHP é clássico para web, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de PHP ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "sql": {
+    "name": "SQL",
+    "description": "Linguagem de consulta estruturada para bancos de dados relacionais.",
+    "fallback": [
+      "E aí, {name}! A base de dados para SQL ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre SQL! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🗄️",
+      "Opa, {name}! SQL é essencial para dados, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de SQL ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  },
+  "portugol": {
+    "name": "Portugol",
+    "description": "Linguagem de programação em português, usada para ensino de lógica.",
+    "fallback": [
+      "E aí, {name}! A base de dados para Portugol ainda está sendo alimentada. Em breve vou ter conteúdo completo sobre Portugol! Por enquanto, posso te ajudar com C++. Quer trocar de linguagem? 🇧🇷",
+      "Opa, {name}! Portugol é ótimo para iniciantes, mas minha base para ele ainda está em construção. Volte em breve! Quer conversar sobre C++ enquanto isso? 📚"
+    ],
+    "greetings": [
+      "E aí, {name}! Sou o Carlinho Ai! A base de Portugol ainda está sendo construída, mas em breve estarei cheio de conteúdo. Quer trocar para C++ por enquanto?"
+    ]
+  }
+}
