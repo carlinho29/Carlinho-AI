@@ -1,0 +1,17 @@
+{
+  "name": "carlinho-ai",
+  "version": "1.0.0",
+  "description": "Carlinho Ai - Assistente de Inteligência Artificial para Programação",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "node api/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
