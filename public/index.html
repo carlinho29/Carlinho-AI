@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlinho Ai - Assistente de Programacao</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
+                        dark: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        accent: { 400: '#f472b6', 500: '#ec4899', 600: '#db2777' },
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'slide-up': 'slideUp 0.4s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .code-block { font-family: 'Fira Code', monospace; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .message-bubble { position: relative; }
+        .message-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 20px;
+            background: inherit;
+        }
+        .msg-user::before { right: -10px; border-bottom-left-radius: 16px; }
+        .msg-bot::before { left: -10px; border-bottom-right-radius: 16px; }
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glow { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 40px rgba(236, 72, 153, 0.1); }
+        .typing-dot { animation: typing 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        .lang-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lang-card:hover { transform: translateY(-2px); }
+        .lang-card.active { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+        .send-btn { transition: all 0.2s ease; }
+        .send-btn:hover { transform: scale(1.05); }
+        .send-btn:active { transform: scale(0.95); }
+        .code-inline { background: #1e293b; color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 0.9em; }
+        .code-block-wrapper { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; margin: 8px 0; }
+        .code-block-header { background: #1e293b; padding: 8px 16px; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
+        .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .code-content { padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.6; }
+    </style>
+</head>
+<body class="bg-dark-950 text-dark-100 min-h-screen overflow-hidden">
+
+    <!-- TELA DE BOAS-VINDAS -->
+    <div id="welcomeScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-dark-950">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+        </div>
+        <div class="relative z-10 text-center px-6 max-w-md w-full animate-slide-up">
+            <div class="mb-8">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center glow">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold mb-2 gradient-text">Carlinho Ai</h1>
+                <p class="text-dark-400 text-lg">Seu assistente de programacao inteligente</p>
+            </div>
+            <div class="bg-dark-900/80 backdrop-blur-xl border border-dark-700 rounded-2xl p-6 shadow-2xl">
+                <label class="block text-left text-sm font-medium text-dark-300 mb-2">Qual e o seu nome?</label>
+                <input 
+                    type="text" 
+                    id="nameInput" 
+                    placeholder="Digite seu nome..."
+                    class="w-full px-4 py-3 bg-dark-800 border border-dark-600 rounded-xl text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-lg"
+                    maxlength="30"
+                    autocomplete="name"
+                >
+                <button 
+                    id="startBtn"
+                    class="w-full mt-4 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary-500/25"
+                >
+                    Comecar a Conversar
+                </button>
+            </div>
+            <p class="mt-6 text-dark-500 text-sm">C++ · Python · JavaScript · C# · C · HTML · CSS · PHP · SQL · Portugol</p>
+        </div>
+    </div>
+
+    <!-- INTERFACE PRINCIPAL -->
+    <div id="chatInterface" class="hidden h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="glass border-b border-dark-800 z-40 flex-shrink-0">
+            <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-white text-sm">Carlinho Ai</h2>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-xs text-emerald-400">Online</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="userGreeting" class="hidden sm:block text-sm text-dark-400"></span>
+                    <button id="resetBtn" class="p-2 rounded-lg hover:bg-dark-800 text-dark-400 hover:text-white transition-colors" title="Reiniciar conversa">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seletor de Linguagens -->
+        <div class="glass border-b border-dark-800 z-30 flex-shrink-0">
+            <div class="max-w-4xl mx-auto px-4 py-3">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                    </svg>
+                    <span class="text-xs font-medium text-dark-400 uppercase tracking-wider">Linguagem</span>
+                </div>
+                <div id="langSelector" class="flex gap-2 overflow-x-auto scrollbar-hide pb-1"></div>
+            </div>
+        </div>
+
+        <!-- Area de Mensagens -->
+        <div id="messagesArea" class="flex-1 overflow-y-auto scrollbar-hide px-4 py-6">
+            <div class="max-w-4xl mx-auto space-y-6" id="messagesList"></div>
+        </div>
+
+        <!-- Area de Input -->
+        <div class="glass border-t border-dark-800 z-40 flex-shrink-0">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-end gap-3">
+                    <div class="flex-1 relative">
+                        <textarea 
+                            id="messageInput"
+                            placeholder="Digite sua pergunta sobre programacao..."
+                            rows="1"
+                            class="w-full px-4 py-3 pr-12 bg-dark-800 border border-dark-700 rounded-2xl text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all resize-none max-h-32"
+                            style="min-height: 48px;"
+                        ></textarea>
+                        <button id="emojiBtn" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-dark-700 text-dark-400 hover:text-yellow-400 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button id="sendBtn" class="send-btn w-12 h-12 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/25 flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-center text-xs text-dark-600 mt-2">Carlinho Ai pode cometer erros. Verifique informacoes importantes.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ============================================
+    // CONFIGURACAO E ESTADO
+    // ============================================
+    const API_BASE = window.location.origin.includes('localhost') ? 'http://localhost:3000/api' : '/api';
+
+    let state = {
+        userName: localStorage.getItem('carlinho_user_name') || '',
+        currentLang: localStorage.getItem('carlinho_lang') || 'cpp',
+        messages: JSON.parse(localStorage.getItem('carlinho_messages') || '[]'),
+        languages: [],
+        isTyping: false
+    };
+
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const chatInterface = document.getElementById('chatInterface');
+    const nameInput = document.getElementById('nameInput');
+    const startBtn = document.getElementById('startBtn');
+    const messagesArea = document.getElementById('messagesArea');
+    const messagesList = document.getElementById('messagesList');
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const langSelector = document.getElementById('langSelector');
+    const userGreeting = document.getElementById('userGreeting');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // ============================================
+    // INICIALIZACAO
+    // ============================================
+    async function init() {
+        await loadLanguages();
+        if (state.userName) {
+            showChat();
+            renderMessages();
+            scrollToBottom();
+        } else {
+            welcomeScreen.classList.remove('hidden');
+            chatInterface.classList.add('hidden');
+        }
+    }
+
+    async function loadLanguages() {
+        try {
+            const res = await fetch(API_BASE + '/languages');
+            const data = await res.json();
+            state.languages = data.languages || [];
+            renderLangSelector();
+        } catch (e) {
+            state.languages = [
+                { id: 'cpp', name: 'C++', hasContent: true },
+                { id: 'python', name: 'Python', hasContent: false },
+                { id: 'c', name: 'C', hasContent: false },
+                { id: 'csharp', name: 'C#', hasContent: false },
+                { id: 'javascript', name: 'JavaScript', hasContent: false },
+                { id: 'html', name: 'HTML', hasContent: false },
+                { id: 'css', name: 'CSS', hasContent: false },
+                { id: 'php', name: 'PHP', hasContent: false },
+                { id: 'sql', name: 'SQL', hasContent: false },
+                { id: 'portugol', name: 'Portugol', hasContent: false }
+            ];
+            renderLangSelector();
+        }
+    }
+
+    function renderLangSelector() {
+        const langColors = {
+            cpp: 'from-blue-500 to-cyan-400',
+            python: 'from-yellow-500 to-amber-400',
+            c: 'from-slate-500 to-gray-400',
+            csharp: 'from-purple-500 to-violet-400',
+            javascript: 'from-yellow-400 to-orange-400',
+            html: 'from-orange-500 to-red-400',
+            css: 'from-blue-400 to-indigo-400',
+            php: 'from-indigo-500 to-purple-400',
+            sql: 'from-emerald-500 to-teal-400',
+            portugol: 'from-green-500 to-emerald-400'
+        };
+
+        langSelector.innerHTML = state.languages.map(lang => {
+            const isActive = lang.id === state.currentLang;
+            const hasContent = lang.hasContent;
+            const colorClass = langColors[lang.id] || 'from-primary-500 to-primary-400';
+
+            return '<button onclick="selectLanguage(\'' + lang.id + '\')" class="lang-card flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all cursor-pointer ' +
+                (isActive 
+                    ? 'border-primary-500 bg-primary-500/10 text-white shadow-lg shadow-primary-500/10' 
+                    : 'border-dark-700 bg-dark-800/50 text-dark-400 hover:border-dark-600 hover:text-dark-200') +
+                '">' +
+                '<div class="w-3 h-3 rounded-full bg-gradient-to-br ' + colorClass + ' ' + (!hasContent ? 'opacity-50' : '') + '"></div>' +
+                '<span class="text-sm font-medium whitespace-nowrap">' + lang.name + '</span>' +
+                (!hasContent ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-dark-700 text-dark-500">Em breve</span>' : '') +
+                '</button>';
+        }).join('');
+    }
+
+    function selectLanguage(langId) {
+        state.currentLang = langId;
+        localStorage.setItem('carlinho_lang', langId);
+        renderLangSelector();
+
+        const lang = state.languages.find(l => l.id === langId);
+        if (lang && !lang.hasContent) {
+            addBotMessage('E ai, ' + state.userName + '! A base de dados para **' + lang.name + '** ainda esta sendo alimentada. Em breve vou ter conteudo completo! Por enquanto, posso te ajudar com **C++**.');
+        } else {
+            addBotMessage('Perfeito, ' + state.userName + '! Agora estou no modo **' + lang.name + '**. Pode me fazer qualquer pergunta sobre a linguagem!');
+        }
+        saveMessages();
+    }
+
+    // ============================================
+    // TELA DE BOAS-VINDAS
+    // ============================================
+    startBtn.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        if (name.length < 2) {
+            nameInput.classList.add('ring-2', 'ring-red-500/50', 'border-red-500');
+            setTimeout(() => {
+                nameInput.classList.remove('ring-2', 'ring-red-500/50', 'border-red-500');
+            }, 2000);
+            return;
+        }
+        state.userName = name;
+        localStorage.setItem('carlinho_user_name', name);
+        showChat();
+
+        const greetings = [
+            'E ai, **' + name + '**! Sou o **Carlinho Ai**, seu assistente de programacao! Pode me perguntar qualquer coisa sobre **C++** — variaveis, loops, funcoes, ponteiros, classes, STL... To aqui pra ajudar!',
+            'Fala, **' + name + '**! **Carlinho Ai** na area! Pronto pra mergulhar no mundo de **C++**? Me manda sua duvida que eu traduzo em codigo!',
+            'Ola, **' + name + '**! Bem-vindo ao **Carlinho Ai**! Especialista em **C++** (e em breve em mais linguagens!). O que vamos aprender hoje?'
+        ];
+        addBotMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+        saveMessages();
+    });
+
+    nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') startBtn.click();
+    });
+
+    function showChat() {
+        welcomeScreen.classList.add('hidden');
+        chatInterface.classList.remove('hidden');
+        userGreeting.textContent = 'Ola, ' + state.userName + '!';
+        userGreeting.classList.remove('hidden');
+    }
+
+    // ============================================
+    // MENSAGENS
+    // ============================================
+    function addUserMessage(text) {
+        const msg = { role: 'user', text: text, timestamp: new Date().toISOString() };
+        state.messages.push(msg);
+        renderMessage(msg);
+        saveMessages();
+        scrollToBottom();
+    }
+
+    function addBotMessage(text) {
+        const msg = { role: 'bot', text: text, timestamp: new Date().toISOString() };
+        state.messages.push(msg);
+        renderMessage(msg);
+        saveMessages();
+        scrollToBottom();
+    }
+
+    function renderMessages() {
+        messagesList.innerHTML = '';
+        state.messages.forEach(msg => renderMessage(msg));
+    }
+
+    function renderMessage(msg) {
+        const isUser = msg.role === 'user';
+        const html = '<div class="flex ' + (isUser ? 'justify-end' : 'justify-start') + ' animate-fade-in">' +
+            '<div class="flex max-w-[85%] sm:max-w-[75%] ' + (isUser ? 'flex-row-reverse' : 'flex-row') + ' gap-3">' +
+            '<div class="flex-shrink-0 ' + (isUser ? 'hidden sm:flex' : 'flex') + ' flex-col items-center">' +
+            '<div class="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold ' +
+            (isUser ? 'bg-gradient-to-br from-accent-500 to-accent-600 text-white' : 'bg-gradient-to-br from-primary-500 to-primary-600 text-white') +
+            '">' + (isUser ? state.userName.charAt(0).toUpperCase() : 'C') + '</div>' +
+            '</div>' +
+            '<div class="message-bubble msg-' + (isUser ? 'user' : 'bot') + ' px-4 py-3 rounded-2xl ' +
+            (isUser ? 'bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-br-none' : 'bg-dark-800 border border-dark-700 text-dark-100 rounded-bl-none') +
+            '">' + formatMessageText(msg.text) + '</div>' +
+            '</div>' +
+            '</div>';
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        messagesList.appendChild(temp.firstElementChild);
+    }
+
+    function formatMessageText(text) {
+        let formatted = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary-300">$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/`([^`]+)`/g, '<code class="code-inline">$1</code>')
+            .replace(/\n/g, '<br>');
+
+        formatted = formatted.replace(/```([\s\S]*?)```/g, function(match, code) {
+            return '<div class="code-block-wrapper"><div class="code-block-header"><div class="code-dot bg-red-500"></div><div class="code-dot bg-yellow-500"></div><div class="code-dot bg-green-500"></div><span class="ml-2">C++</span></div><div class="code-content code-block text-dark-200">' + code.trim() + '</div></div>';
+        });
+
+        return formatted;
+    }
+
+    function showTypingIndicator() {
+        const html = '<div id="typingIndicator" class="flex justify-start animate-fade-in">' +
+            '<div class="flex max-w-[75%] flex-row gap-3">' +
+            '<div class="flex-shrink-0 flex flex-col items-center">' +
+            '<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-sm font-bold text-white">C</div>' +
+            '</div>' +
+            '<div class="message-bubble msg-bot px-4 py-3 rounded-2xl bg-dark-800 border border-dark-700 text-dark-100 rounded-bl-none">' +
+            '<div class="flex items-center gap-1.5 py-1">' +
+            '<div class="typing-dot w-2 h-2 rounded-full bg-primary-400"></div>' +
+            '<div class="typing-dot w-2 h-2 rounded-full bg-primary-400"></div>' +
+            '<div class="typing-dot w-2 h-2 rounded-full bg-primary-400"></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        messagesList.appendChild(temp.firstElementChild);
+        scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
+
+    function scrollToBottom() {
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+
+    function saveMessages() {
+        localStorage.setItem('carlinho_messages', JSON.stringify(state.messages));
+    }
+
+    // ============================================
+    // ENVIAR MENSAGEM
+    // ============================================
+    async function sendMessage() {
+        const text = messageInput.value.trim();
+        if (!text || state.isTyping) return;
+
+        messageInput.value = '';
+        messageInput.style.height = '48px';
+        addUserMessage(text);
+
+        state.isTyping = true;
+        showTypingIndicator();
+
+        try {
+            const res = await fetch(API_BASE + '/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: text,
+                    language: state.currentLang,
+                    userName: state.userName
+                })
+            });
+
+            const data = await res.json();
+            removeTypingIndicator();
+
+            if (data.response) {
+                addBotMessage(data.response);
+            } else {
+                addBotMessage('E ai, ' + state.userName + '! Desculpe, tive um probleminha aqui. Pode tentar de novo?');
+            }
+        } catch (e) {
+            removeTypingIndicator();
+            const fallbackResponse = generateOfflineResponse(text, state.currentLang, state.userName);
+            addBotMessage(fallbackResponse);
+        }
+
+        state.isTyping = false;
+    }
+
+    // ============================================
+    // RESPOSTA OFFLINE (FALLBACK)
+    // ============================================
+    function generateOfflineResponse(message, lang, userName) {
+        const lower = message.toLowerCase();
+
+        if (lower.includes('oi') || lower.includes('ola') || lower.includes('olá') || lower.includes('eae') || lower.includes('hey') || lower.includes('e ai')) {
+            return 'E ai, ' + userName + '! Sou o **Carlinho Ai**! Pode me perguntar qualquer coisa sobre **C++** — variaveis, loops, funcoes, ponteiros, classes, STL... To aqui pra ajudar!';
+        }
+        if (lower.includes('variavel') || lower.includes('variável') || lower.includes('int') || lower.includes('float') || lower.includes('double') || lower.includes('char') || lower.includes('bool') || lower.includes('string') || lower.includes('tipo')) {
+            return 'Em C++, ' + userName + ', os principais tipos de dados sao: `int` (inteiros), `float` e `double` (decimais), `char` (caracteres), `bool` (booleanos) e `string` (textos). Quer ver exemplos?';
+        }
+        if (lower.includes('if') || lower.includes('else') || lower.includes('condicional') || lower.includes('switch')) {
+            return 'Em C++, ' + userName + ', usamos `if`, `else if` e `else` para controle condicional. Tambem temos o `switch` para multiplos casos. Quer um exemplo pratico?';
+        }
+        if (lower.includes('for') || lower.includes('while') || lower.includes('loop') || lower.includes('repeticao') || lower.includes('repetição')) {
+            return 'C++ tem tres estruturas de repeticao principais, ' + userName + ': `for` (quando sabe o numero de iteracoes), `while` (condicao no inicio) e `do...while` (condicao no final). Qual quer ver?';
+        }
+        if (lower.includes('funcao') || lower.includes('funcao') || lower.includes('function') || lower.includes('metodo') || lower.includes('método') || lower.includes('procedimento')) {
+            return 'Funcoes em C++, ' + userName + ', sao declaradas assim: `tipoRetorno nomeFuncao(tipoParam param) { ... return valor; }`. A `main()` e a funcao principal! Quer ver exemplos?';
+        }
+        if (lower.includes('ponteiro') || lower.includes('pointer') || lower.includes('memoria') || lower.includes('memória') || lower.includes('endereco') || lower.includes('endereço')) {
+            return 'Ponteiros sao um dos pontos fortes de C++, ' + userName + '! Um ponteiro armazena o endereco de memoria de uma variavel. Declaramos com `*`: `int* ptr = &variavel;`. E desafiador no inicio, mas muito poderoso!';
+        }
+        if (lower.includes('classe') || lower.includes('objeto') || lower.includes('oop') || lower.includes('orientacao') || lower.includes('orientação') || lower.includes('encapsulamento') || lower.includes('heranca') || lower.includes('herança') || lower.includes('polimorfismo')) {
+            return 'Classes em C++ sao a base da POO, ' + userName + '! Declaramos com `class Nome { private: ... public: ... };`. Temos construtores, destrutores, heranca e polimorfismo! Quer um exemplo completo?';
+        }
+        if (lower.includes('stl') || lower.includes('vector') || lower.includes('map') || lower.includes('set') || lower.includes('queue') || lower.includes('stack') || lower.includes('list') || lower.includes('deque')) {
+            return 'A STL (Standard Template Library) e um tesouro de C++, ' + userName + '! Temos `vector` (array dinamico), `map` (dicionario), `set` (conjunto), `queue` (fila), `stack` (pilha) e muito mais!';
+        }
+        if (lower.includes('compilar') || lower.includes('compilacao') || lower.includes('compilação') || lower.includes('g++') || lower.includes('gcc') || lower.includes('build') || lower.includes('linker')) {
+            return 'Para compilar C++, ' + userName + ', usamos o g++: `g++ arquivo.cpp -o programa`. O processo tem pre-processamento, compilacao, montagem e linkedicao. Quer entender cada etapa?';
+        }
+        if (lower.includes('cout') || lower.includes('cin') || lower.includes('entrada') || lower.includes('saida') || lower.includes('saída') || lower.includes('printf') || lower.includes('scanf') || lower.includes('iostream')) {
+            return 'Em C++, ' + userName + ', usamos `std::cout` para saida e `std::cin` para entrada. Exemplo: `cout << "Ola!";` e `cin >> variavel;`. Nao esqueca do `#include <iostream>`!';
+        }
+        if (lower.includes('erro') || lower.includes('bug') || lower.includes('debug') || lower.includes('depurar') || lower.includes('segmentation') || lower.includes('segfault') || lower.includes('memory leak') || lower.includes('excecao') || lower.includes('exceção') || lower.includes('try') || lower.includes('catch')) {
+            return 'Erros comuns em C++, ' + userName + ': `segmentation fault` (acesso invalido de memoria), `memory leak` (esqueceu `delete`), e erros de tipo. Use `valgrind` para detectar vazamentos!';
+        }
+        if (lower.includes('boa pratica') || lower.includes('boas praticas') || lower.includes('boas práticas') || lower.includes('dica') || lower.includes('conselho') || lower.includes('recomendacao') || lower.includes('recomendação') || lower.includes('clean code') || lower.includes('modern cpp')) {
+            return 'Boas praticas em C++, ' + userName + ': use `const` sempre que possivel, prefira referencias a ponteiros, use smart pointers (`unique_ptr`, `shared_ptr`), e evite macros! O codigo fica mais seguro!';
+        }
+        if (lower.includes('array') || lower.includes('vetor') || lower.includes('matriz') || lower.includes('arranjo') || lower.includes('lista')) {
+            return 'Arrays em C++ sao colecoes de elementos do mesmo tipo, ' + userName + '. Exemplo: `int numeros[5] = {1, 2, 3, 4, 5};`. O indice comeca em 0! Quer ver sobre arrays multidimensionais?';
+        }
+
+        return 'Hmm, ' + userName + ', essa pergunta sobre C++ e interessante! Mas ainda nao tenho essa informacao detalhada na minha base. Posso te ajudar com: variaveis, loops, funcoes, ponteiros, classes, STL, compilacao, entrada/saida, erros e boas praticas. Qual desses?';
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    sendBtn.addEventListener('click', sendMessage);
+
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    messageInput.addEventListener('input', function() {
+        this.style.height = '48px';
+        this.style.height = Math.min(this.scrollHeight, 128) + 'px';
+    });
+
+    resetBtn.addEventListener('click', () => {
+        if (confirm('Deseja reiniciar a conversa? Todo o historico sera apagado.')) {
+            state.messages = [];
+            localStorage.removeItem('carlinho_messages');
+            messagesList.innerHTML = '';
+            const greetings = [
+                'Conversa reiniciada! E ai, ' + state.userName + '! Sou o **Carlinho Ai**! Pode me perguntar qualquer coisa sobre **C++**!',
+                'Fala, ' + state.userName + '! **Carlinho Ai** de volta! Pronto pra mais codigo?',
+                'Ola de novo, ' + state.userName + '! O que vamos aprender agora?'
+            ];
+            addBotMessage(greetings[Math.floor(Math.random() * greetings.length)]);
+        }
+    });
+
+    document.getElementById('emojiBtn').addEventListener('click', () => {
+        const emojis = ['👍', '👎', '😄', '😅', '🤔', '💻', '🚀', '✨', '🔥', '💡', '🎯', '🎉', '🤓', '💪', '⚡'];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        messageInput.value += randomEmoji;
+        messageInput.focus();
+    });
+
+    init();
+    </script>
+</body>
+</html>
