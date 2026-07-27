@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const knowledgePath = path.join(__dirname, '..', 'data', 'knowledge.json');
+const knowledgePath = path.join(__dirname, 'data', 'knowledge.json');
 let knowledge = {};
 try {
     knowledge = JSON.parse(fs.readFileSync(knowledgePath, 'utf8'));
@@ -148,17 +148,15 @@ app.post('/api/chat', (req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`🚀 Carlinho Ai rodando na porta ${PORT}`);
-    });
-}
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
 
 module.exports = app;
