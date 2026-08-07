@@ -202,9 +202,6 @@
     </div>
 
     <script>
-    // ============================================
-    // CONFIGURACAO E ESTADO
-    // ============================================
     const API_BASE = window.location.origin.includes('localhost') ? 'http://localhost:3000/api' : '/api';
 
     let state = {
@@ -227,9 +224,6 @@
     const userGreeting = document.getElementById('userGreeting');
     const resetBtn = document.getElementById('resetBtn');
 
-    // ============================================
-    // INICIALIZACAO
-    // ============================================
     async function init() {
         await loadLanguages();
         if (state.userName) {
@@ -310,9 +304,6 @@
         saveMessages();
     }
 
-    // ============================================
-    // TELA DE BOAS-VINDAS
-    // ============================================
     startBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
         if (name.length < 2) {
@@ -346,9 +337,6 @@
         userGreeting.classList.remove('hidden');
     }
 
-    // ============================================
-    // MENSAGENS
-    // ============================================
     function addUserMessage(text) {
         const msg = { role: 'user', text: text, timestamp: new Date().toISOString() };
         state.messages.push(msg);
@@ -437,9 +425,6 @@
         localStorage.setItem('carlinho_messages', JSON.stringify(state.messages));
     }
 
-    // ============================================
-    // ENVIAR MENSAGEM
-    // ============================================
     async function sendMessage() {
         const text = messageInput.value.trim();
         if (!text || state.isTyping) return;
@@ -479,9 +464,6 @@
         state.isTyping = false;
     }
 
-    // ============================================
-    // RESPOSTA OFFLINE (FALLBACK)
-    // ============================================
     function generateOfflineResponse(message, lang, userName) {
         const lower = message.toLowerCase();
 
@@ -528,9 +510,6 @@
         return 'Hmm, ' + userName + ', essa pergunta sobre C++ e interessante! Mas ainda nao tenho essa informacao detalhada na minha base. Posso te ajudar com: variaveis, loops, funcoes, ponteiros, classes, STL, compilacao, entrada/saida, erros e boas praticas. Qual desses?';
     }
 
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
     sendBtn.addEventListener('click', sendMessage);
 
     messageInput.addEventListener('keypress', (e) => {
@@ -568,5 +547,15 @@
 
     init();
     </script>
+    <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
 </body>
 </html>
